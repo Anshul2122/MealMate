@@ -44,7 +44,7 @@ export const jwtParse = async (
     }
     //getting the custom properties from the request object
     req.auth0Id = auth0Id as string;
-    req.userId = user._id.toString();
+    req.userId = user._id!.toString();
     next();
 
   } catch (error) {

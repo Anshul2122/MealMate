@@ -14,6 +14,7 @@ const MobileNav = () => {
                 <Menu className="text-orange-500"/>
             </SheetTrigger>
             <SheetContent className="space-y-3">
+                <SheetTitle>
                 {isAuthenticated ? (
                     <span className="flex items-center font-bold gap-2">
                         <CircleUserRound className="text-orange-500" />
@@ -22,7 +23,8 @@ const MobileNav = () => {
                 ): (
                     <span>Welcome to mealMate.com !</span>
                 
-                )}
+                    )}
+                    </SheetTitle>
                 <Separator />
                 <SheetDescription className="flex flex-col gap-4" >
                     {isAuthenticated ?

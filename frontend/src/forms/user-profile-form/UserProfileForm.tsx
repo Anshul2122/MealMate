@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -5,6 +6,7 @@ import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, Form
 import { Input } from '@/components/ui/input';
 import LoadingButton from '../../components/LoadingButton';
 import { Button } from '../../components/ui/button';
+import { User } from '@/types';
 
 const formSchema = z.object({
     email: z.string().optional(),
@@ -18,15 +20,21 @@ const formSchema = z.object({
 type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
+    currentUser: User;
     onSave: (userProfileData: UserFormData) => void;
     isLoading: boolean;
 }
 //imported from from react-hook-form, and telling it the type of form is UserFormData
 //zod resolver is for validation and stuff like that and then we are passing out form schema in it, connectin zod framework to the useForm hook
-const UserProfileForm = ({ isLoading, onSave }: Props) => {
+const UserProfileForm = ({ isLoading, onSave, currentUser }: Props) => {
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
+        defaultValues : currentUser,
     });
+
+    useEffect(() => {
+        form.reset(currentUser);
+     },[currentUser, form])
 
     return (
         <Form {...form}>
